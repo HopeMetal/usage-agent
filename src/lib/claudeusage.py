@@ -23,7 +23,11 @@ def get_claude_usage_data_files():
     for claude_dir in claude_paths:
         path = os.path.join(homepath, claude_dir, "local-agent-mode-sessions")
         if not os.path.exists(path):
-            raise FileNotFoundError
+            path = ""
+        else:
+            break
+    if path == "":
+        raise FileNotFoundError
     matching = []
     for root, dirs, files in os.walk(path):
         for file in files:
