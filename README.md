@@ -10,7 +10,7 @@ It supports the following AI assistants:
 1. Make sure you have Python installed on your system.
 2. Clone this repo locally.
 3. Make a copy of .env.example, rename it to .env and fill in the URL to your Azure OpenAI endpoint and add your Azure OpenAI API key.
-4. Run launch.bat to setup a Python virtual environment for the app on first run then launch the agent.
+4. Run `launch.bat` on Windows or `./launch.sh` on Linux to set up a Python virtual environment on first run, then launch the agent.
 
 You can also ask your AI assistant to install and run this app with the provided skill in .agents
 
