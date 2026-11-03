@@ -1,16 +1,29 @@
 import os
+import platform
 import regex
 from src.lib import agentusage
 from src.lib.agentusage import ModelUsage
 
+claude_paths = ["Claude", "Claude-3p"]
+
 homepath = os.path.expanduser("~")
+
+match platform.system():
+    case "Windows":
+        homepath = os.getenv("LOCALAPPDATA")
+    case "Linux":
+        homepath = os.path.join(homepath, ".config")
+    case "Darwin":
+        homepath = os.path.join(homepath, "Library", "Application Support")
 
 pattern = regex.compile("\\d+-\\d+-\\d+\\.ndjson")
 
 def get_claude_usage_data_files():
-    path = os.path.join(os.getenv("LOCALAPPDATA"), "Claude-3p", "local-agent-mode-sessions")
-    if not os.path.exists(path):
-        raise FileNotFoundError
+    path = ""
+    for claude_dir in claude_paths:
+        path = os.path.join(homepath, claude_dir, "local-agent-mode-sessions")
+        if not os.path.exists(path):
+            raise FileNotFoundError
     matching = []
     for root, dirs, files in os.walk(path):
         for file in files:
