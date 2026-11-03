@@ -32,6 +32,9 @@ else
 fi
 
 if ! "$python_command" -m venv .venv; then
+    if [ -d ".venv" ]; then
+        rm -r .venv/
+    fi
     echo "ERROR: Failed to create the Python virtual environment." >&2
     exit 1
 fi
